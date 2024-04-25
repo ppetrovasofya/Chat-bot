@@ -8,7 +8,6 @@ import faculty as fc
 
 
 router = Router()
-answers = ["Ответ 1_1", "Ответ 1_2", "Ответ 2_1", "Ответ 2_2"]
 counter_answer = 0
 
 # стартовое сообщение
@@ -60,46 +59,184 @@ async def q1(callback: CallbackQuery):
                 "psyteach": 0, "ling": 0,
                 "compling": 0, "forensic": 0}
     await callback.answer()
-    await callback.message.answer(text="Первый вопрос:", reply_markup=kb.first_q)
+    await callback.message.answer(text="1. Вилкой в глаз или в жопу раз?", reply_markup=kb.first_q)
 
-@router.message(F.text =='Ответ 1_1')
-async def q2(message: types.Message):
+@router.message(F.text =='Вилкой в глаз')
+async def q2_1(message: types.Message):
     fc.score["law"] += 1
-    await message.answer(text="Второй вопрос:", reply_markup=kb.second_q)
+    fc.score["forensic"] += 1
+    fc.score["psyteach"] += 1
+    fc.score["region"] += 1
+    await message.answer(text="2. Экстраверт или интроверт?", reply_markup=kb.second_q)
 
 
-@router.message(F.text =='Ответ 1_2')
-async def q2(message: types.Message):
+@router.message(F.text =='В жопу раз')
+async def q2_2(message: types.Message):
     fc.score["ling"] += 1
-    await message.answer(text="Второй вопрос:", reply_markup=kb.second_q)
+    fc.score["advert"] += 1
+    fc.score["compling"] += 1
+    fc.score["books"] += 1
+    await message.answer(text="2. Экстраверт или интроверт?", reply_markup=kb.second_q)
 
-@router.message(F.text == "Ответ 2_1")
+@router.message(F.text =='Экстраверт')
+async def q3_1(message: types.Message):
+    fc.score["law"] += 1
+    fc.score["forensic"] += 1
+    fc.score["psyteach"] += 1
+    fc.score["books"] += 1
+    await message.answer(text="3. Пиво или водка?", reply_markup=kb.third_q)
+
+
+@router.message(F.text =='Интроверт')
+async def q3_2(message: types.Message):
+    fc.score["ling"] += 1
+    fc.score["compling"] += 1
+    fc.score["advert"] += 1
+    fc.score["region"] += 1
+    await message.answer(text="3. Пиво или водка? ", reply_markup=kb.third_q)
+
+@router.message(F.text =='Пиво')
+async def q4_1(message: types.Message):
+    fc.score["law"] += 1
+    fc.score["advert"] += 1
+    fc.score["forensic"] += 1
+    fc.score["ling"] += 1
+    await message.answer(text="4. Кринж или рофл?", reply_markup=kb.fourth_q)
+
+
+@router.message(F.text =='Водка')
+async def q4_2(message: types.Message):
+    fc.score["region"] += 1
+    fc.score["psyteach"] += 1
+    fc.score["compling"] += 1
+    fc.score["books"] += 1
+    await message.answer(text="4. Кринж или рофл?", reply_markup=kb.fourth_q)
+
+@router.message(F.text =='Кринж')
+async def q5_1(message: types.Message):
+    fc.score["region"] += 1
+    fc.score["ling"] += 1
+    fc.score["psyteach"] += 1
+    fc.score["compling"] += 1
+    await message.answer(text="5.Обычный паляж или нудистский?", reply_markup=kb.fifth_q)
+
+
+@router.message(F.text =='Рофл')
+async def q5_2(message: types.Message):
+    fc.score["books"] += 1
+    fc.score["advert"] += 1
+    fc.score["forensic"] += 1
+    fc.score["law"] += 1
+    await message.answer(text="5.Обычный пляж или нудистский?", reply_markup=kb.fifth_q)
+
+@router.message(F.text =='Обычный')
+async def q6_1(message: types.Message):
+    fc.score["books"] += 1
+    fc.score["compling"] += 1
+    fc.score["forensic"] += 1
+    fc.score["region"] += 1
+    await message.answer(text="6.Год без интернета или год без любви?", reply_markup=kb.sixth_q)
+
+
+@router.message(F.text =='Нудистский')
+async def q6_2(message: types.Message):
+    fc.score["ling"] += 1
+    fc.score["psyteach"] += 1
+    fc.score["advert"] += 1
+    fc.score["law"] += 1
+    await message.answer(text="6. Год без интернета или год без любви?", reply_markup=kb.sixth_q)
+
+@router.message(F.text =='Год без любви')
+async def q7_1(message: types.Message):
+    fc.score["ling"] += 1
+    fc.score["forensic"] += 1
+    fc.score["compling"] += 1
+    fc.score["law"] += 1
+    await message.answer(text="7.Иметь 100 друзей или 100 рублей?", reply_markup=kb.seventh_q)
+
+
+@router.message(F.text =='Год без интернета')
+async def q7_2(message: types.Message):
+    fc.score["books"] += 1
+    fc.score["advert"] += 1
+    fc.score["psyteach"] += 1
+    fc.score["region"] += 1
+    await message.answer(text="7.Иметь 100 друзей или 100 рублей?", reply_markup=kb.seventh_q)
+
+
+@router.message(F.text =='100 рублей')
+async def q8_1(message: types.Message):
+    fc.score["law"] += 1
+    fc.score["advert"] += 1
+    fc.score["forensic"] += 1
+    fc.score["region"] += 1
+    await message.answer(text="8. Есть 2 стула. На одном пики точенные, на втором хуи дроченные. На какой сам сядешь, на какой мать посадишь?", reply_markup=kb.eight_q)
+
+@router.message(F.text =='100 друзей')
+async def q8_2(message: types.Message):
+    fc.score["ling"] += 1
+    fc.score["psyteach"] += 1
+    fc.score["compling"] += 1
+    fc.score["books"] += 1
+    await message.answer(text="8. Есть 2 стула. На одном пики точенные, на втором хуи дроченные. На какой сам сядешь, на какой мать посадишь?", reply_markup=kb.eight_q)
+
+@router.message(F.text == "Сяду на пики, мать на хуи")
 async def handle_bye(message: types.Message):
+    fc.score["ling"] += 1
+    fc.score["psyteach"] += 1
+    fc.score["forensic"] += 1
     fc.score["law"] += 1
     for k, val in fc.score.items():
-        if val >= 2:
+        if val >= 6:
             prog = k
             global counter_answer
             counter_answer += 1
-            await message.answer(text=f"Тебе может подойти специальность {fc.programms[prog]} \nОфициальное описание программы: {fc.urls[prog]}", reply_markup=kb.back)
+            await message.answer(text=f"Тебе может подойти  *{fc.programms[prog]}* \n\n*Ссылка на официальный сайт ГИ:* {fc.urls[prog]} \n\n*Описание программы:* {fc.description[prog]} \n\n*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
+    await message.answer(text="Молодец чел", reply_markup=kb.cal_after_survey)
     if counter_answer == 0:
         await message.answer(text="Чел тебе не по адресу. Иди на завод", reply_markup=kb.back)
 
-@router.message(F.text == "Ответ 2_2")
+@router.message(F.text == "Сяду на хуи, мать на пики")
 async def handle_bye(message: types.Message):
-    fc.score["ling"] += 1
+    fc.score["books"] += 1
+    fc.score["advert"] += 1
+    fc.score["compling"] += 1
+    fc.score["region"] += 1
     for k, val in fc.score.items():
-        if val >= 2:
+        if val >= 6:
             prog = k
             global counter_answer
             counter_answer += 1
-            await message.answer(text=f"Тебе может подойти специальность {fc.programms[prog]} \nСсылка на официальный сайт ГИ: {fc.urls[prog]} \nОписание программы: {fc.description[prog]}", reply_markup=kb.back)
+            await message.answer(text=f"Тебе может подойти  *{fc.programms[prog]}* \n\n*Ссылка на официальный сайт ГИ:* {fc.urls[prog]} \n\n*Описание программы:* {fc.description[prog]} \n\n*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
+    await message.answer(text="Молодец чел", reply_markup=kb.cal_after_survey)
     if counter_answer == 0:
         await message.answer(text="Чел тебе не по адресу. Иди на завод", reply_markup=kb.back)
 
-"""Предполагается, что пользователь ничего не будет самостоятельно писать в чат - все будет реализовано с помощью кнопок. 
-Поэтому при написании в чат чего то лишнего бот выдаст следующее сообщение"""
+@router.callback_query(F.data == "calculator")
+async def back(callback: CallbackQuery):
+    await callback.answer()
+    await callback.message.answer(text="Ты уже сдал ЕГЭ или прошел вступительные испытания?", reply_markup=kb.exam_passed)
+
+@router.message(F.text =='Да')
+async def yes(message: types.Message):
+    await message.answer(text="Введи свой суммарный балл, включая баллы за ИД\nБаллы за ИД можно посмотреть здесь: https://www.spbstu.ru/abit/bachelor/oznakomitsya-with-the-regulations/individual-achievements/")
+
 @router.message()
-async def handle_text(message: Message):
-    if message.text.lower() not in answers:
-        await message.answer("Переформулируй свое сообщение")
+async def check_points(message: types.Message):
+    try:
+        points = int(message.text)
+    except ValueError:
+        await message.answer("Что-то пошло не так :(\nВведи свой суммарный балл, включая баллы за ИД")
+    for k, val in fc.score.items():
+        if val >= 6:
+            prog = k
+            if points < fc.exam_points22[prog]:
+                await message.answer(f"На {fc.programms[prog]} в 2022г. ты бы не прошел")
+            else:
+                await message.answer(f"На {fc.programms[prog]} в 2022г. ты бы прошел")
+
+            if points < fc.exam_points23[prog]:
+                await message.answer(f"На {fc.programms[prog]} в 2023г. ты бы не прошел")
+            else:
+                await message.answer(f"На {fc.programms[prog]} в 2023г. ты бы прошел")
+
