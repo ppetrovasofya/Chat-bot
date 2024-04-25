@@ -10,7 +10,7 @@ from handlers import router
 """
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token="7055728613:AAHsj-Uufr_Qb7L-9OzddNfBzWHGY8DPhI8")
+bot = Bot(token=)
 dp = Dispatcher()
 
 
