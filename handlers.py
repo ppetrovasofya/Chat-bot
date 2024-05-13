@@ -9,6 +9,7 @@ import faculty as fc
 
 router = Router()
 counter_answer = 0
+passed = False
 
 
 # стартовое сообщение
@@ -493,12 +494,12 @@ async def q13_3(message: types.Message):
 
 
 @router.message(F.text == "а) Создавать контент")
-async def handle_bye(message: types.Message):
+async def handle_bye_1(message: types.Message):
     fc.score["advert"] += 1
     fc.score["books"] += 1
 
     for k, val in fc.score.items():
-        if val >= 7:
+        if val > 6:
             prog = k
             global counter_answer
             counter_answer += 1
@@ -507,7 +508,7 @@ async def handle_bye(message: types.Message):
                                       f"*Описание программы:* {fc.description[prog]} \n\n"
                                       f"*Профессии выпускников:* {fc.jobs[prog]} \n\n"
                                       f"*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
-    if counter_answer >= 1:
+    if counter_answer > 0:
         await message.answer(text="Кек-кек-кек! Благодарим за прохождения нашей анкеты, надеемся, "
                                   "что результаты помогли тебе хотя бы немного разобраться в своих мыслях. "
                                   "Результаты данного анкетирования не являются исчерпывающими. "
@@ -519,12 +520,12 @@ async def handle_bye(message: types.Message):
 
 
 @router.message(F.text == "б) Работать с детьми")
-async def handle_bye(message: types.Message):
+async def handle_bye_2(message: types.Message):
     fc.score["psyteach"] += 1
     fc.score["ling"] += 1
 
     for k, val in fc.score.items():
-        if val >= 7:
+        if val > 6:
             prog = k
             global counter_answer
             counter_answer += 1
@@ -533,7 +534,7 @@ async def handle_bye(message: types.Message):
                                       f"*Описание программы:* {fc.description[prog]} \n\n"
                                       f"*Профессии выпускников:* {fc.jobs[prog]} \n\n"
                                       f"*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
-    if counter_answer >= 1:
+    if counter_answer > 0:
         await message.answer(text="Кек-кек-кек! Благодарим за прохождения нашей анкеты, надеемся, "
                                   "что результаты помогли тебе хотя бы немного разобраться в своих мыслях. "
                                   "Результаты данного анкетирования не являются исчерпывающими. "
@@ -545,11 +546,11 @@ async def handle_bye(message: types.Message):
 
 
 @router.message(F.text == "в) Что-то другое")
-async def handle_bye(message: types.Message):
+async def handle_bye_3(message: types.Message):
     # Никуда балл не ставим
 
     for k, val in fc.score.items():
-        if val >= 7:
+        if val > 6:
             prog = k
             global counter_answer
             counter_answer += 1
@@ -558,32 +559,8 @@ async def handle_bye(message: types.Message):
                                       f"*Описание программы:* {fc.description[prog]} \n\n"
                                       f"*Профессии выпускников:* {fc.jobs[prog]} \n\n"
                                       f"*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
-    if counter_answer >= 1:
+    if counter_answer > 0:
         await message.answer(text="Кек-кек-кек! Благодарим за прохождения нашей анкеты, надеемся, "
-                                  "что результаты помогли тебе хотя бы немного разобраться в своих мыслях. "
-                                "Результаты данного анкетирования не являются исчерпывающими. "
-                                "Они предоставляют лишь общую картину и могут быть полезным для понимания своих желаний в выборе будущего "
-                                "направления образования. Информацию, полученную из этой анкеты, следует рассматривать в контексте других факторов, "
-                                "она не должна быть единственным основанием для принятия решений. Удачи!", reply_markup=kb.cal_after_survey)
-    else:
-        await message.answer(text="К сожалению, в результате данного анкетирования я не смог найти направление, которое сможет тебя заинтересовать. Вероятно, тебе еще предстоит узнать свои личные и профессиональные интересы или тебя заинтересуют направления подготовки других институтов Политеха!", reply_markup=kb.back)
-
-@router.message(F.text == "в) Что-то другое")
-async def handle_bye(message: types.Message):
-    # Никуда балл не ставим
-
-    for k, val in fc.score.items():
-        if val >= 7:
-            prog = k
-            global counter_answer
-            counter_answer += 1
-            await message.answer(text=f"Тебе может подойти  *{fc.programms[prog]}* \n\n"
-                                      f"*Ссылка на официальный сайт ГИ:* {fc.urls[prog]} \n\n"
-                                      f"*Описание программы:* {fc.description[prog]} \n\n"
-                                      f"*Профессии выпускников:* {fc.jobs[prog]} \n\n"
-                                      f"*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
-    if counter_answer >= 1:
-        await message.answer(text="Кек-кек-кек! Благодарим за прохождение нашей анкеты, надеемся, "
                                   "что результаты помогли тебе хотя бы немного разобраться в своих мыслях. "
                                 "Результаты данного анкетирования не являются исчерпывающими. "
                                 "Они предоставляют лишь общую картину и могут быть полезным для понимания своих желаний в выборе будущего "
@@ -599,20 +576,21 @@ async def back(callback: CallbackQuery):
     await callback.message.answer(text="Ты уже сдал(-а) ЕГЭ или прошел(-ла) вступительные испытания?", reply_markup=kb.exam_passed)
 
 
-@router.callback_query(F.data == "yes")
-async def yes(callback: CallbackQuery):
-    await callback.answer()
-    await callback.message.answer(text="Введи свой суммарный балл, включая баллы за ИД\nБаллы за ИД можно посмотреть здесь: https://www.spbstu.ru/abit/bachelor/oznakomitsya-with-the-regulations/individual-achievements/")
+@router.message(F.text == "Да")
+async def yes(message: types.Message):
+    global passed
+    passed = True
+    await message.answer(text="Введи свой суммарный балл, включая баллы за ИД\nБаллы за ИД можно посмотреть здесь: https://www.spbstu.ru/abit/bachelor/oznakomitsya-with-the-regulations/individual-achievements/")
 
-@router.callback_query(F.data == "no")
-async def no(callback: CallbackQuery):
+@router.message(F.text == "Нет")
+async def no(message: types.Message):
+
     for k, val in fc.score.items():
-        if val >= 7:
+        if val > 6:
             prog = k
-            await callback.answer()
-            await callback.message.answer(text= f"В таком случае ориентируйся на проходные баллы прошлых лет.\n"
-                                     f"На направление подготовки {fc.programms[prog]} в 2022 г. проходной балл был {fc.exam_points22[prog]}, "
-                                     f"а в 2023 г. - {fc.exam_points23[prog]}.\n\nНадеюсь, эта информация была для тебя полезной! Успехов!",reply_markup=kb.back)
+            await message.answer(f"В таком случае ориентируйся на проходные баллы прошлых лет.\n"
+                        f"На направление подготовки {fc.programms[prog]} в 2022 г. проходной балл был {fc.exam_points22[prog]}, "
+                        f"а в 2023 г. - {fc.exam_points23[prog]}.\n\nНадеюсь, эта информация была для тебя полезной! Успехов!",reply_markup=kb.back)
 
 @router.message()
 async def check_points(message: types.Message):
@@ -622,7 +600,7 @@ async def check_points(message: types.Message):
         await message.answer("Что-то пошло не так :(\nВведи свой суммарный балл, включая баллы за ИД")
 
     for k, val in fc.score.items():
-        if val >= 7:
+        if val > 6:
             prog = k
             if points < fc.exam_points22[prog]:
                 answ22 = f"На направление подготовки {fc.programms[prog]} в 2022г. ты бы не прошел(-ла)."
