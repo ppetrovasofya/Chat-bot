@@ -599,16 +599,18 @@ async def back(callback: CallbackQuery):
     await callback.message.answer(text="Ты уже сдал(-а) ЕГЭ или прошел(-ла) вступительные испытания?", reply_markup=kb.exam_passed)
 
 
-@router.message(F.text == "Да")
-async def yes(message: types.Message):
-    await message.answer(text="Введи свой суммарный балл, включая баллы за ИД\nБаллы за ИД можно посмотреть здесь: https://www.spbstu.ru/abit/bachelor/oznakomitsya-with-the-regulations/individual-achievements/")
+@router.callback_query(F.data == "yes")
+async def yes(callback: CallbackQuery):
+    await callback.answer()
+    await callback.message.answer(text="Введи свой суммарный балл, включая баллы за ИД\nБаллы за ИД можно посмотреть здесь: https://www.spbstu.ru/abit/bachelor/oznakomitsya-with-the-regulations/individual-achievements/")
 
-@router.message(F.text == "Нет")
-async def no(message: types.Message):
+@router.callback_query(F.data == "no")
+async def no(callback: CallbackQuery):
     for k, val in fc.score.items():
         if val >= 7:
             prog = k
-            await message.answer(text= f"В таком случае ориентируйся на проходные баллы прошлых лет.\n"
+            await callback.answer()
+            await callback.message.answer(text= f"В таком случае ориентируйся на проходные баллы прошлых лет.\n"
                                      f"На направление подготовки {fc.programms[prog]} в 2022 г. проходной балл был {fc.exam_points22[prog]}, "
                                      f"а в 2023 г. - {fc.exam_points23[prog]}.\n\nНадеюсь, эта информация была для тебя полезной! Успехов!",reply_markup=kb.back)
 
