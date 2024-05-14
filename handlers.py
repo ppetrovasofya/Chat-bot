@@ -499,7 +499,7 @@ async def handle_bye_1(message: types.Message):
     fc.score["books"] += 1
 
     for k, val in fc.score.items():
-        if val > 6:
+        if val >= 6:
             prog = k
             global counter_answer
             counter_answer += 1
@@ -525,7 +525,7 @@ async def handle_bye_2(message: types.Message):
     fc.score["ling"] += 1
 
     for k, val in fc.score.items():
-        if val > 6:
+        if val >= 6:
             prog = k
             global counter_answer
             counter_answer += 1
@@ -550,7 +550,7 @@ async def handle_bye_3(message: types.Message):
     # Никуда балл не ставим
 
     for k, val in fc.score.items():
-        if val > 6:
+        if val >= 6:
             prog = k
             global counter_answer
             counter_answer += 1
@@ -586,7 +586,7 @@ async def yes(message: types.Message):
 async def no(message: types.Message):
 
     for k, val in fc.score.items():
-        if val > 6:
+        if val >= 6:
             prog = k
             await message.answer(f"В таком случае ориентируйся на проходные баллы прошлых лет.\n"
                         f"На направление подготовки {fc.programms[prog]} в 2022 г. проходной балл был {fc.exam_points22[prog]}, "
@@ -600,7 +600,7 @@ async def check_points(message: types.Message):
         await message.answer("Что-то пошло не так :(\nВведи свой суммарный балл, включая баллы за ИД")
 
     for k, val in fc.score.items():
-        if val > 6:
+        if val >= 6:
             prog = k
             if points < fc.exam_points22[prog]:
                 answ22 = f"На направление подготовки {fc.programms[prog]} в 2022г. ты бы не прошел(-ла)."
