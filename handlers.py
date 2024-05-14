@@ -79,7 +79,7 @@ async def q1(callback: CallbackQuery):
                 "psyteach": 0, "ling": 0,
                 "compling": 0, "forensic": 0}
     await callback.answer()
-    await callback.message.answer(text="1. Какой тип профессии ты бы предпочел? \n\n"
+    await callback.message.answer(text="1. Какой тип профессии ты предпочтешь? \n\n"
                                        "a) «Человек – человек» – это работа с людьми во всех ее видах и проявления.\n"
                                        "б) «Человек – знаковая система» – любая деятельность, связанная с "
                                        "необходимостью систематизации и обозначения чего-либо.\n"
@@ -95,7 +95,7 @@ async def q2_1(message: types.Message):
     fc.score["psyteach"] += 1
     fc.score["ling"] += 1
     await message.answer(text="2. На любом направлении в ГИ изучается английский язык в качестве первого иностранного языка. "
-                              "Хотел бы ты овладеть вторым иностранным языком?", reply_markup=kb.second_q)
+                              "Хочешь овладеть вторым иностранным языком?", reply_markup=kb.second_q)
 
 
 @router.message(F.text == "б) «Человек – знаковая система»")
@@ -105,7 +105,7 @@ async def q2_2(message: types.Message):
     fc.score["ling"] += 1
     fc.score["compling"] += 1
     await message.answer(text="2. На любом направлении в ГИ изучается английский язык в качестве первого иностранного языка. "
-                              "Хотел бы ты овладеть вторым иностранным языком?", reply_markup=kb.second_q)
+                              "Хочешь овладеть вторым иностранным языком?", reply_markup=kb.second_q)
 
 
 @router.message(F.text == "в) «Человек – художественный образ»")
@@ -113,7 +113,7 @@ async def q2_3(message: types.Message):
     fc.score["advert"] += 1
     fc.score["books"] += 1
     await message.answer(text="2. На любом направлении в ГИ изучается английский язык в качестве первого иностранного языка. "
-                              "Хотел бы ты овладеть вторым иностранным языком?", reply_markup=kb.second_q)
+                              "Хочешь овладеть вторым иностранным языком?", reply_markup=kb.second_q)
 
 
 @router.message(F.text == 'Да, хочу')
@@ -424,7 +424,7 @@ async def q11_3(message: types.Message):
 async def q12_1(message: types.Message):
     fc.score["books"] += 1
     fc.score["ling"] += 1
-    await message.answer(text="12. Что бы ты изучил?\n\n"
+    await message.answer(text="12. Что выберешь изучить?\n\n"
                               "а) Историю и культуру страны\n"
                               "б) Язык программирования\n"
                               "в) Ничего из этого", reply_markup=kb.twelth_q)
@@ -433,7 +433,7 @@ async def q12_1(message: types.Message):
 @router.message(F.text == 'б) Организовать выставку')
 async def q12_2(message: types.Message):
     fc.score["region"] += 1
-    await message.answer(text="12. Что бы ты изучил?\n\n"
+    await message.answer(text="12. Что выберешь изучить?\n\n"
                               "а) Историю и культуру страны\n"
                               "б) Язык программирования\n"
                               "в) Ничего из этого", reply_markup=kb.twelth_q)
@@ -442,7 +442,7 @@ async def q12_2(message: types.Message):
 @router.message(F.text == 'в) Быть вожатым(-ой)')
 async def q12_3(message: types.Message):
     fc.score["psyteach"] += 1
-    await message.answer(text="12. Что бы ты изучил?\n\n"
+    await message.answer(text="12. Что выберешь изучить?\n\n"
                               "а) Историю и культуру страны\n"
                               "б) Язык программирования\n"
                               "в) Ничего из этого", reply_markup=kb.twelth_q)
@@ -452,7 +452,7 @@ async def q12_3(message: types.Message):
 async def q12_4(message: types.Message):
     fc.score["law"] += 1
     fc.score["advert"] += 1
-    await message.answer(text="12. Что бы ты изучил?\n\n"
+    await message.answer(text="12. Что выберешь изучить?\n\n"
                               "а) Историю и культуру страны\n"
                               "б) Язык программирования\n"
                               "в) Ничего из этого", reply_markup=kb.twelth_q)
@@ -461,7 +461,7 @@ async def q12_4(message: types.Message):
 @router.message(F.text == 'д) Ничего из этого')
 async def q12_5(message: types.Message):
     # Никуда балл не ставим
-    await message.answer(text="12. Что бы ты изучил?\n\n"
+    await message.answer(text="12. Что выберешь изучить?\n\n"
                               "а) Историю и культуру страны\n"
                               "б) Язык программирования\n"
                               "в) Ничего из этого", reply_markup=kb.twelth_q)
@@ -508,14 +508,14 @@ async def handle_bye_1(message: types.Message):
                                       f"*Описание программы:* {fc.description[prog]} \n\n"
                                       f"*Профессии выпускников:* {fc.jobs[prog]} \n\n"
                                       f"*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
-    if counter_answer > 0:
-        await message.answer(text="Кек-кек-кек! Благодарим за прохождения нашей анкеты, надеемся, "
+
+            await message.answer(text="Кек-кек-кек! Благодарим за прохождение нашей анкеты, надеемся, "
                                   "что результаты помогли тебе хотя бы немного разобраться в своих мыслях. "
                                   "Результаты данного анкетирования не являются исчерпывающими. "
                                   "Они предоставляют лишь общую картину и могут быть полезным для понимания своих желаний в выборе будущего "
                                   "направления образования. Информацию, полученную из этой анкеты, следует рассматривать в контексте других факторов, "
                                   "она не должна быть единственным основанием для принятия решений. Удачи!", reply_markup=kb.cal_after_survey)
-    else:
+    if counter_answer == 0:
         await message.answer(text="К сожалению, в результате данного анкетирования я не смог найти направление, которое сможет тебя заинтересовать. Вероятно, тебе еще предстоит узнать свои личные и профессиональные интересы или тебя заинтересуют направления подготовки других институтов Политеха!",reply_markup=kb.back)
 
 
@@ -534,14 +534,14 @@ async def handle_bye_2(message: types.Message):
                                       f"*Описание программы:* {fc.description[prog]} \n\n"
                                       f"*Профессии выпускников:* {fc.jobs[prog]} \n\n"
                                       f"*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
-    if counter_answer > 0:
-        await message.answer(text="Кек-кек-кек! Благодарим за прохождения нашей анкеты, надеемся, "
+
+            await message.answer(text="Кек-кек-кек! Благодарим за прохождение нашей анкеты, надеемся, "
                                   "что результаты помогли тебе хотя бы немного разобраться в своих мыслях. "
                                   "Результаты данного анкетирования не являются исчерпывающими. "
                                   "Они предоставляют лишь общую картину и могут быть полезным для понимания своих желаний в выборе будущего "
                                   "направления образования. Информацию, полученную из этой анкеты, следует рассматривать в контексте других факторов, "
                                   "она не должна быть единственным основанием для принятия решений. Удачи!", reply_markup=kb.cal_after_survey)
-    else:
+    if counter_answer == 0:
         await message.answer(text="К сожалению, в результате данного анкетирования я не смог найти направление, которое сможет тебя заинтересовать. Вероятно, тебе еще предстоит узнать свои личные и профессиональные интересы или тебя заинтересуют направления подготовки других институтов Политеха!", reply_markup=kb.back)
 
 
@@ -559,14 +559,14 @@ async def handle_bye_3(message: types.Message):
                                       f"*Описание программы:* {fc.description[prog]} \n\n"
                                       f"*Профессии выпускников:* {fc.jobs[prog]} \n\n"
                                       f"*Минимальные баллы:*\n {fc.min_points[prog]}", parse_mode="Markdown")
-    if counter_answer > 0:
-        await message.answer(text="Кек-кек-кек! Благодарим за прохождения нашей анкеты, надеемся, "
+
+            await message.answer(text="Кек-кек-кек! Благодарим за прохождение нашей анкеты, надеемся, "
                                   "что результаты помогли тебе хотя бы немного разобраться в своих мыслях. "
                                 "Результаты данного анкетирования не являются исчерпывающими. "
                                 "Они предоставляют лишь общую картину и могут быть полезным для понимания своих желаний в выборе будущего "
                                 "направления образования. Информацию, полученную из этой анкеты, следует рассматривать в контексте других факторов, "
                                 "она не должна быть единственным основанием для принятия решений. Удачи!", reply_markup=kb.cal_after_survey)
-    else:
+    if counter_answer == 0:
         await message.answer(text="К сожалению, в результате данного анкетирования я не смог найти направление, которое сможет тебя заинтересовать. Вероятно, тебе еще предстоит узнать свои личные и профессиональные интересы или тебя заинтересуют направления подготовки других институтов Политеха!", reply_markup=kb.back)
 
 
@@ -613,3 +613,4 @@ async def check_points(message: types.Message):
                 answ23 = f"На направление подготовки {fc.programms[prog]} в 2023г. ты бы прошел(-ла)."
 
             await message.answer(f"Если рассматривать проходные баллы прошлых лет, то\n\n{answ22}\n{answ23}\n\nНадеюсь, эта информация была для тебя полезной! Успехов!",reply_markup=kb.back)
+
