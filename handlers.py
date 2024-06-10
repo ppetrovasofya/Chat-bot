@@ -23,7 +23,7 @@ async def main(message: types.Message):
 @router.callback_query(F.data == "help")
 async def university(callback: CallbackQuery):
     await callback.answer()
-    await callback.message.edit_text("Если в процессе использования бота вы нашли опечатку, ошибку или баг, сообщите, пожалуйста, нам", reply_markup=kb.back)
+    await callback.message.edit_text("Если в процессе использования бота вы нашли опечатку, ошибку или баг, сообщите, пожалуйста, нам на почту polyhumguide@mail.ru", reply_markup=kb.back)
 
 
 # инлайн-кнопка "Что за птица?"
@@ -69,7 +69,7 @@ async def survey(callback: CallbackQuery):
              "psyteach": 0, "ling": 0,
              "compling": 0, "forensic": 0}
     await callback.answer()  # Устанавливаем начальные значения для всех специальностей. При выборе того или иного ответа значение меняется
-    await callback.message.edit_text(text="Данная анкета сделана на основе тестов на профориентацию и отзывах нынешних студентов об их направлении подготовки. Ее прохождение поможет подобрать направление по сферам личных и научных интересов и оценить свои шансы на поступление.", reply_markup=kb.ready)
+    await callback.message.edit_text(text="Кек-кек-кек! Данная анкета сделана на основе тестов на профориентацию и отзывах нынешних студентов об их направлении подготовки. Ее прохождение поможет мне подобрать для тебя направление по сферам личных и научных интересов и оценить твои шансы на поступление. Удачи!", reply_markup=kb.ready)
 
 
 @router.callback_query(F.data == "ready")
@@ -80,7 +80,7 @@ async def q1(callback: CallbackQuery):
                 "compling": 0, "forensic": 0}
     await callback.answer()
     await callback.message.answer(text="1. Какой тип профессии ты предпочтешь? \n\n"
-                                       "a) «Человек – человек» – это работа с людьми во всех ее видах и проявления.\n"
+                                       "a) «Человек – человек» – это работа с людьми во всех ее видах и проявлениях.\n"
                                        "б) «Человек – знаковая система» – любая деятельность, связанная с "
                                        "необходимостью систематизации и обозначения чего-либо.\n"
                                        "в) «Человек – художественный образ» – это все профессии творческого спектра "
@@ -589,7 +589,7 @@ async def no(message: types.Message):
         if val >= 7:
             prog = k
             await message.answer(f"В таком случае ориентируйся на проходные баллы прошлых лет.\n"
-                        f"На направление подготовки {fc.programms[prog]} в 2022 г. проходной балл был {fc.exam_points22[prog]}, "
+                        f"На направление подготовки {fc.programms[prog]} в 2022 г. проходной балл на бюджет был {fc.exam_points22[prog]}, "
                         f"а в 2023 г. - {fc.exam_points23[prog]}.\n\nНадеюсь, эта информация была для тебя полезной! Успехов!",reply_markup=kb.back)
 
 @router.message()
@@ -603,14 +603,14 @@ async def check_points(message: types.Message):
         if val >= 7:
             prog = k
             if points < fc.exam_points22[prog]:
-                answ22 = f"На направление подготовки {fc.programms[prog]} в 2022г. ты бы не прошел(-ла)."
+                answ22 = f"На направление подготовки {fc.programms[prog]} в 2022г. ты бы не прошел(-ла) на бюджет."
             else:
-                answ22 = f"На направление подготовки {fc.programms[prog]} в 2022г. ты бы прошел(-ла)."
+                answ22 = f"На направление подготовки {fc.programms[prog]} в 2022г. ты бы прошел(-ла) на бюджет."
 
             if points < fc.exam_points23[prog]:
-                answ23 = f"На направление подготовки {fc.programms[prog]} в 2023г. ты бы не прошел(-ла)."
+                answ23 = f"На направление подготовки {fc.programms[prog]} в 2023г. ты бы не прошел(-ла) на бюджет."
             else:
-                answ23 = f"На направление подготовки {fc.programms[prog]} в 2023г. ты бы прошел(-ла)."
+                answ23 = f"На направление подготовки {fc.programms[prog]} в 2023г. ты бы прошел(-ла) на бюджет."
 
             await message.answer(f"Если рассматривать проходные баллы прошлых лет, то\n\n{answ22}\n{answ23}\n\nНадеюсь, эта информация была для тебя полезной! Успехов!",reply_markup=kb.back)
 
